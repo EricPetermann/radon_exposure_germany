@@ -19,5 +19,12 @@
     "title": "Federal states",
     "section": "",
     "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level."
+  },
+  {
+    "objectID": "districts.html",
+    "href": "districts.html",
+    "title": "Districts",
+    "section": "",
+    "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level.\n\n\nReading layer `Ergebnisse Kreise' from data source \n  `C:\\BfS\\Daten\\Rn-Innenraum-Prognose\\Ergebnisse Kreise.gpkg' \n  using driver `GPKG'\nSimple feature collection with 431 features and 39 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 280371.1 ymin: 5235856 xmax: 921292.4 ymax: 6101444\nProjected CRS: ETRS89 / UTM zone 32N"
   }
 ]

@@ -1,0 +1,47 @@
+---
+title: "Districts"
+---
+
+Here are the results of indoor radon exposure at home in Germany at the municipality level. 
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tmap)
+library(raster)
+library(rgdal)
+library(sf)
+library(tmaptools)
+library(classInt)
+
+setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
+ BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
+KR<-st_read("Ergebnisse Kreise.gpkg")
+
+KR$EW300<-KR$Exc300*KR$Samples/10
+KR$EW300k<-KR$EW300/1000
+
+#define class breaks
+breaks_AM = c(-Inf,35,55,75,100,125,150,Inf)
+breaks_Exc100 = c(-Inf,2,5,8,12,20,30,45,Inf)
+breaks_pop_BL = c(-Inf,10,25,50,100,250,500,Inf)
+
+#convert to percent
+KR$Exc100<-KR$Exc100*100
+
+
+tmap_mode(mode = "view")
+
+
+  tmap_options(check.and.fix = TRUE)
+  tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
+  tm_shape(KR,bbox=st_bbox(KR))+
+  tm_fill("AM",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
+              title="[Bq/m³]",legend.is.portrait = TRUE)+
+  tm_shape(BL,bbox=st_bbox(BL))+
+  tm_borders(col="black",lwd=0.5,alpha=1)+
+  tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
+  tm_layout(panel.show = TRUE,legend.show=TRUE,legend.outside.position = "right",legend.outside = TRUE,
+            panel.labels = "Arithmetic mean", legend.outside.size = 0.1,panel.label.size = 1)
+
+```
+

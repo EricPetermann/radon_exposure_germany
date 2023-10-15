@@ -2,7 +2,7 @@
 title: "Federal states"
 ---
 
-Here are the results of indoor radon exposure at home in Germany at the municipality level. 
+Here are the results of indoor radon exposure at home in Germany at the federal state level. 
 
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
