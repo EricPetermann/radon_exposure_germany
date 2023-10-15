@@ -1,8 +1,9 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "Indoor radonm exposure Germany"
+  title: "Indoor radon exposure Germany"
   navbar:
     left:
       - href: index.qmd
