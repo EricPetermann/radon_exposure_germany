@@ -9,14 +9,14 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Map at the municipality level",
+    "title": "About",
     "section": "",
-    "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level."
+    "text": "This is supporting material to our recent preprint “A new high-resolution residential radon map for Germany using a machine learning based probabilistic exposure model”. Here you can find interactive maps of exposure of the German population to the carcinogen radioactive gas radon. Further, you can also find our model as an interactive tool to get a feeling of what is going on behind the scenes.\nYou can find the preprint here: …"
   },
   {
     "objectID": "federal_states.html",
     "href": "federal_states.html",
-    "title": "Map at the municipality level",
+    "title": "Federal states",
     "section": "",
     "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level."
   }
