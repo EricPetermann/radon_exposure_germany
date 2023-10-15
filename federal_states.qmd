@@ -18,6 +18,11 @@ BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 # KR<-st_read("Ergebnisse Kreise.gpkg")
 # GEM<-st_read("Ergebnisse Gemeinde_FINAL.gpkg")
 
+BL$AM_adj <- as.character(formatC(BL$AM,
+                                  big.mark = " ", 
+                                  format = "f", 
+                                  digits = 0))
+
 BL$EW300<-BL$Exc300*BL$Samples/10
 BL$EW300k<-BL$EW300/1000
 

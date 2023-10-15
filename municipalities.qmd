@@ -17,6 +17,11 @@ setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
 BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 GEM<-st_read("Ergebnisse Gemeinde_FINAL.gpkg",quiet=TRUE)
 
+GEM$AM <- as.character(formatC(GEM$AM,
+                                  big.mark = " ", 
+                                  format = "f", 
+                                  digits = 0))
+
 GEM$EW300<-GEM$Exc300*GEM$Samples/10
 GEM$EW300k<-GEM$EW300/1000
 
