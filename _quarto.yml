@@ -8,7 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - federal_states.qmd
+      - districts.qmd
+      - municipalities.qmd
+      - model.qmd
 
 format:
   html:
