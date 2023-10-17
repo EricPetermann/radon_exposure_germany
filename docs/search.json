@@ -26,5 +26,12 @@
     "title": "Districts",
     "section": "",
     "text": "Here are the results of indoor radon exposure at home in Germany at the district level."
+  },
+  {
+    "objectID": "municipalities.html",
+    "href": "municipalities.html",
+    "title": "Municipalities",
+    "section": "",
+    "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level."
   }
 ]
