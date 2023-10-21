@@ -32,6 +32,7 @@ breaks_pop_BL = c(-Inf,10,25,50,100,250,500,Inf)
 
 #convert to percent
 GEM$Exc100<-GEM$Exc100*100
+GEM$AGS<-GEM$Kommune
 
 
 tmap_mode(mode = "view")
