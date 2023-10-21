@@ -18,7 +18,7 @@
     "href": "federal_states.html",
     "title": "Federal states",
     "section": "",
-    "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level."
+    "text": "Here are the results of indoor radon exposure at home in Germany at the federal state level."
   },
   {
     "objectID": "districts.html",
@@ -33,5 +33,12 @@
     "title": "Municipalities",
     "section": "",
     "text": "Here are the results of indoor radon exposure at home in Germany at the municipality level."
+  },
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Model",
+    "section": "",
+    "text": "Model …"
   }
 ]
