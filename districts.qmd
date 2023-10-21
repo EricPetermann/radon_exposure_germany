@@ -40,7 +40,7 @@ tmap_mode(mode = "view")
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
   tm_shape(KR,bbox=st_bbox(KR))+
-  tm_fill("AM",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
+  tm_fill("AM_adj",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
               title="[Bq/m³]",legend.is.portrait = TRUE)+
   tm_borders(col="grey",lwd=0.5,alpha=0.5)+
   tm_shape(BL,bbox=st_bbox(KR))+

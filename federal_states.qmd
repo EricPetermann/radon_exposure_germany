@@ -79,7 +79,7 @@ tmap_mode(mode = "view")
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
   tm_shape(BL,bbox=st_bbox(BL))+
-  tm_fill("AM",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
+  tm_fill("AM_adj",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
               title=c("[Bq/m³]","[%]"),legend.is.portrait = TRUE)+
   tm_shape(BL,bbox=st_bbox(BL))+
   tm_borders(col="black",lwd=0.5,alpha=1)+
