@@ -10,8 +10,8 @@ website:
         text: Home
       - federal_states.qmd
       - districts.qmd
-      - municipalities.qmd
-      - model.qmd
+      # - municipalities.qmd
+      # - model.qmd
 
 format:
   html:
