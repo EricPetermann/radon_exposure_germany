@@ -1,3 +1,5 @@
-# radon_exposure_germany
+# Radon exposure map Germany
 
-supplementary material to our new preprint
+Supplementary material to our new preprint
+
+Visit: https://indoor.radonmap.info
