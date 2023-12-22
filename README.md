@@ -3,3 +3,5 @@
 Supplementary material to our new preprint
 
 Visit: https://indoor.radonmap.info
+
+By Eric Petermann
