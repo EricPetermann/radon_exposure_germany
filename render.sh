@@ -4,5 +4,5 @@
 # Author: Valentin Ziel
 #
 
-quarto render
+quarto render index.qmd
 cp -r docs/* website/
