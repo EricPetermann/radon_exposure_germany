@@ -8,15 +8,20 @@ Here are the results of indoor radon exposure at home in Germany at the federal 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(tmap)
 library(raster)
-library(rgdal)
 library(sf)
 library(tmaptools)
 library(classInt)
 
+if (Sys.getenv("DEV")=="Docker") { 
+setwd("/app/")
+BL<-st_read("./daten/bundesland.gpkg",quiet=TRUE)
+} else { 
 setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
 BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
-# KR<-st_read("Ergebnisse Kreise.gpkg")
-# GEM<-st_read("Ergebnisse Gemeinde_FINAL.gpkg")
+}
+
+
+
 
 BL$AM_adj <- as.character(formatC(BL$AM,
                                   big.mark = " ", 
