@@ -8,14 +8,19 @@ Here are the results of indoor radon exposure at home in Germany at the district
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(tmap)
 library(raster)
-library(rgdal)
 library(sf)
 library(tmaptools)
 library(classInt)
 
+if (Sys.getenv("DEV")=="Docker") { 
+setwd("/app/")
+BL<-st_read("./daten/bundesland.gpkg",quiet=TRUE)
+KR<-st_read("./daten/kreise.gpkg",quiet=TRUE) 
+} else { 
 setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
- BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
+BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 KR<-st_read("Ergebnisse Kreise.gpkg",quiet=TRUE)
+}
 
 KR$EW300<-KR$Exc300*KR$Samples/10
 KR$EW300k<-KR$EW300/1000
