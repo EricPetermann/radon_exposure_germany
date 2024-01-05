@@ -23,10 +23,10 @@ BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 
 
 
-BL$AM_adj <- as.character(formatC(BL$AM,
+BL$AM_adj <- as.numeric(as.character(formatC(BL$AM,
                                   big.mark = " ", 
                                   format = "f", 
-                                  digits = 0))
+                                  digits = 0)))
 
 BL$EW300<-BL$Exc300*BL$Samples/10
 BL$EW300k<-BL$EW300/1000
@@ -39,47 +39,8 @@ breaks_pop_BL = c(-Inf,10,25,50,100,250,500,Inf)
 #convert to percent
 BL$Exc100<-BL$Exc100*100
 
-# facets = c("AM", "Exc100","EW300k")
-# breaks = c(breaks_AM,breaks_Exc100,breaks_pop_BL)
-# tm_shape(BL) + tm_fill(facets,palette = "YlGnBu",alpha=0.7, breaks=breaks,style="fixed",
-#               title="[Bq/m³]",legend.is.portrait = TRUE) + 
-#   tm_facets(nrow = 1, sync = TRUE)+
-#     tm_shape(BL,bbox=st_bbox(BL))+
-#   tm_borders(col="black",lwd=0.5,alpha=1)+
-#   tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
-#   tm_layout(legend.show=FALSE,legend.outside.position = "right",legend.outside = TRUE,
-#             panel.labels = "Arithmetic mean", legend.outside.size = 0.1,panel.label.size = 1)
-
 
 tmap_mode(mode = "view")
-
-# tmap_options(check.and.fix = TRUE)
-#   tm_basemap(c(StreetMap = "OpenStreetMap",
-#              TopoMap = "OpenTopoMap"))+
-#   tm_shape(BL,bbox=st_bbox(BL))+
-#   tm_fill("AM",palette = "YlGnBu",alpha=0.7, breaks=breaks_AM,style="fixed",
-#               title="[Bq/m³]",legend.is.portrait = TRUE)+
-#   tm_shape(BL,bbox=st_bbox(BL))+
-#   tm_fill("Exc100",palette = "YlGnBu",alpha=0.7, breaks=breaks_Exc100,style="fixed",
-#               title="[%]",legend.is.portrait = TRUE)+
-#   tm_shape(BL,bbox=st_bbox(BL))+
-#   tm_borders(col="black",lwd=0.5,alpha=1)+
-#   tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
-#   tm_layout(panel.show = TRUE,legend.show=TRUE,legend.outside.position = "right",legend.outside = TRUE,
-#             panel.labels = c("Arithmetic mean","100 Bq/m³ exceedance"), legend.outside.size = 0.1,panel.label.size = 1)
-  
-  
-# tm_shape(KR,bbox=st_bbox(BL))+
-  # tm_fill("AM",palette = "YlGnBu", breaks=breaks_AM,style="fixed",
-  #             title="[Bq/m³]",legend.is.portrait = TRUE)+
-  # tm_shape(GEM,bbox=st_bbox(BL))+
-  # tm_fill("AM",palette = "YlGnBu", breaks=breaks_AM,style="fixed",
-  # #             title="[Bq/m³]",legend.is.portrait = TRUE)+
-  # tm_shape(BL,bbox=st_bbox(BL))+
-  # tm_borders(col="black",lwd=0.5,alpha=1)+
-  # tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
-  # tm_layout(legend.show=FALSE,legend.outside.position = "right",legend.outside = TRUE,
-  #           panel.labels = "Arithmetic mean", legend.outside.size = 0.1,panel.label.size = 1)
 
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+

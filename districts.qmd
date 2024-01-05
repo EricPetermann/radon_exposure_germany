@@ -25,10 +25,10 @@ KR<-st_read("Ergebnisse Kreise.gpkg",quiet=TRUE)
 KR$EW300<-KR$Exc300*KR$Samples/10
 KR$EW300k<-KR$EW300/1000
 
-KR$AM_adj <- as.character(formatC(KR$AM,
+KR$AM_adj <- as.numeric(as.character(formatC(KR$AM,
                                   big.mark = " ", 
                                   format = "f", 
-                                  digits = 0))
+                                  digits = 0)))
 
 #define class breaks
 breaks_AM = c(-Inf,35,55,75,100,125,150,Inf)
