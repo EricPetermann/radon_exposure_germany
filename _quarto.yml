@@ -13,6 +13,21 @@ website:
       - municipalities.qmd
       # - model.qmd
 
+ sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Federal states"
+        contents:
+          - federal_states_AM.qmd
+          - federal_states_Exc100.qmd
+          - federal_states_pop.qmd
+#      - section: "Layout"
+#        contents:
+ #         - layout.qmd
+ #         - layout-knitr.qmd
+ #         - layout-jupyter.qmd
+
 format:
   html:
     theme: cosmo

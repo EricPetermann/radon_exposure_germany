@@ -1,0 +1,45 @@
+---
+title: "100 Bq/m³ exceedance probability"
+---
+
+Here are the results of indoor radon exposure at home in Germany at the federal state level. 
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(tmap)
+library(raster)
+library(sf)
+library(tmaptools)
+library(classInt)
+
+if (Sys.getenv("DEV")=="Docker") { 
+setwd("/app/")
+BL<-st_read("./daten/bundesland.gpkg",quiet=TRUE)
+} else { 
+setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
+BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
+}
+
+#define class breaks
+breaks_Exc100 = c(0,2,5,8,12,20,30,45,Inf)
+
+#convert to percent
+BL$Exc100<-BL$Exc100*100
+
+
+tmap_mode(mode = "view")
+
+  tmap_options(check.and.fix = TRUE)
+  tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
+  tm_shape(BL,bbox=st_bbox(BL))+
+  tm_fill("Exc100",palette = "YlGnBu",alpha=0.7,breaks=breaks_Exc100,style="fixed",
+              title=c("[Bq/m³]","[%]"),legend.is.portrait = TRUE)+
+  tm_borders(col="darkgrey",lwd=0.5,alpha=1)+
+  tm_shape(BL,bbox=st_bbox(BL))+
+  tm_borders(col="black",lwd=1,alpha=1)+
+  tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
+  tm_layout(panel.show = TRUE,legend.show=TRUE,legend.outside.position = "right",legend.outside = TRUE,
+            panel.labels = "Arithmetic mean", legend.outside.size = 0.1,panel.label.size = 1)
+
+```
+
