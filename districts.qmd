@@ -25,10 +25,7 @@ KR<-st_read("Ergebnisse Kreise.gpkg",quiet=TRUE)
 KR$EW300<-KR$Exc300*KR$Samples/10
 KR$EW300k<-KR$EW300/1000
 
-KR$AM_adj <- as.numeric(as.character(formatC(KR$AM,
-                                  big.mark = " ", 
-                                  format = "f", 
-                                  digits = 0)))
+KR$AM <- as.integer(KR$AM)
 
 #define class breaks
 breaks_AM = c(-Inf,35,55,75,100,125,150,Inf)
@@ -45,7 +42,7 @@ tmap_mode(mode = "view")
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
   tm_shape(KR,bbox=st_bbox(KR))+
-  tm_fill("AM_adj",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
+  tm_fill("AM",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
               title="[Bq/m³]",legend.is.portrait = TRUE)+
   tm_borders(col="darkgrey",lwd=0.5,alpha=0.5)+
   tm_shape(BL,bbox=st_bbox(KR))+

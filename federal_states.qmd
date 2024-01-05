@@ -21,12 +21,7 @@ BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 }
 
 
-
-
-BL$AM_adj <- as.numeric(as.character(formatC(BL$AM,
-                                  big.mark = " ", 
-                                  format = "f", 
-                                  digits = 0)))
+BL$AM <- as.integer(BL$AM)  
 
 BL$EW300<-BL$Exc300*BL$Samples/10
 BL$EW300k<-BL$EW300/1000
@@ -45,7 +40,7 @@ tmap_mode(mode = "view")
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
   tm_shape(BL,bbox=st_bbox(BL))+
-  tm_fill("AM_adj",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
+  tm_fill("AM",palette = "YlGnBu",alpha=0.7,breaks=breaks_AM,style="fixed",
               title=c("[Bq/m³]","[%]"),legend.is.portrait = TRUE)+
   tm_borders(col="darkgrey",lwd=0.5,alpha=1)+
   tm_shape(BL,bbox=st_bbox(BL))+
