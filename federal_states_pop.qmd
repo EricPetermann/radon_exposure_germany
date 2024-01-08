@@ -23,7 +23,7 @@ BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 BL$EW100<-BL$Exc100*BL$EWZ
 
 #define class breaks
-breaks_pop_BL = c(0,10000,25000,50000,100000,250000,500000,Inf)
+breaks_pop_BL = c(0,50000,125000,250000,500000,1250000,2500000,Inf)
 
 tmap_mode(mode = "view")
 
