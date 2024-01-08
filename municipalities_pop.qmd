@@ -22,10 +22,10 @@ BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 GEM<-st_read("Ergebnisse Gemeinde_FINAL.gpkg",quiet=TRUE)
 }
 
-GEM$EW100<-GEM$Exc100*GEM$EWZ
+GEM$EW100<-GEM$Exc100*(GEM$Samples/10)
 
 #define class breaks
-breaks_pop_GEM = c(0,100,500,2500,5000,25000,Inf)
+breaks_pop_GEM = c(0,50,250,1250,2500,5000,10000,25000,Inf)
 
 tmap_mode(mode = "view")
 
