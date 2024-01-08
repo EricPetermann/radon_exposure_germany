@@ -8,10 +8,7 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - federal_states.qmd
-      - districts.qmd
-      - municipalities.qmd
-      # - model.qmd
+           # - model.qmd
 
   sidebar:
     style: "docked"
@@ -22,12 +19,16 @@ website:
           - federal_states_AM.qmd
           - federal_states_Exc100.qmd
           - federal_states_pop.qmd
-#      - section: "Layout"
-#        contents:
- #         - layout.qmd
- #         - layout-knitr.qmd
- #         - layout-jupyter.qmd
-
+      - section: "Districts"
+        contents:
+          - districts_AM.qmd
+          - districts_Exc100.qmd
+          - districts_pop.qmd
+      - section: "Municipalities"
+        contents:
+          - municipalities_AM.qmd
+          - municipalities_Exc100.qmd
+          - municipalities_pop.qmd
 format:
   html:
     theme: cosmo
