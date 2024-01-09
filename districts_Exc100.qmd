@@ -1,5 +1,5 @@
 ---
-title: "Districts"
+title: "100 Bq/m³ exceedance probability"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the district level. 
