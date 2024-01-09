@@ -1,5 +1,5 @@
 ---
-title: "Municipalities"
+title: "Arithmetic mean"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the municipality level. 
