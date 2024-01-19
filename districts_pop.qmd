@@ -1,5 +1,5 @@
 ---
-title: "Population above 100 Bq/m³"
+title: "Population above 100 Bq/m³ - districts"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the district level. 
@@ -23,6 +23,7 @@ KR<-st_read("Ergebnisse Kreise.gpkg",quiet=TRUE)
 }
 
 KR$EW100<-KR$Exc100*KR$EWZ
+KR$EW100<-as.numeric(format(round(KR$EW100,0),nsmall=0))
 
 #define class breaks
 breaks_pop_KR = c(0,1000,2500,5000,10000,25000,50000,Inf)
