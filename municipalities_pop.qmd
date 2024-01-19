@@ -1,5 +1,5 @@
 ---
-title: "Population above 100 Bq/m³"
+title: "Population above 100 Bq/m³ - municipalities"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the municipality level. 
@@ -23,6 +23,7 @@ GEM<-st_read("Ergebnisse Gemeinde_FINAL.gpkg",quiet=TRUE)
 }
 
 GEM$EW100<-GEM$Exc100*(GEM$Samples/10)
+GEM$EW100<-as.numeric(format(round(GEM$EW100,0),nsmall=0))
 
 #define class breaks
 breaks_pop_GEM = c(0,50,250,1250,2500,5000,10000,25000,Inf)
