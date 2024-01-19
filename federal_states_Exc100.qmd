@@ -1,5 +1,5 @@
 ---
-title: "100 Bq/m³ exceedance probability"
+title: "100 Bq/m³ exceedance probability - federal states"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the federal state level. 
@@ -25,7 +25,7 @@ breaks_Exc100 = c(0,2,5,8,12,20,30,45,Inf)
 
 #convert to percent
 BL$Exc100<-BL$Exc100*100
-
+BL$Exc100<-as.numeric(format(round(BL$Exc100, 1), nsmall = 1)) #one decimal digit
 
 tmap_mode(mode = "view")
 
