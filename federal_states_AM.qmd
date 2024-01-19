@@ -1,5 +1,5 @@
 ---
-title: "Arithmetic mean"
+title: "Arithmetic mean - federal states"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the federal state level. 
