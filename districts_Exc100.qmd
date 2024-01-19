@@ -37,7 +37,7 @@ tmap_mode(mode = "view")
   tm_fill("Exc100",palette = "YlGnBu",alpha=0.7,breaks=breaks_Exc100,style="fixed",
               title="[%]",legend.is.portrait = TRUE)+
   tm_borders(col="darkgrey",lwd=0.5,alpha=1)+
-  tm_shape(KR,bbox=st_bbox(BL))+
+  tm_shape(BL,bbox=st_bbox(BL))+
   tm_borders(col="black",lwd=1,alpha=1)+
   tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
   tm_layout(panel.show = TRUE,legend.show=TRUE,legend.outside.position = "right",legend.outside = TRUE,
