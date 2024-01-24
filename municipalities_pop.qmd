@@ -1,5 +1,5 @@
 ---
-title: "Population above 100 Bq/m³ - municipalities"
+title: "Population above 100 Bq/m³"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the municipality level. 
