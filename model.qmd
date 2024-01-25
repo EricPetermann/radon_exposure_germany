@@ -86,8 +86,16 @@ ui <-fluidPage(
                    column(3,
                    wellPanel(
                    tags$h1("Input", style = "font-size:30px;color:#3474A7"),
-                   tags$h3("1) Select a location  (within Germany)", style = "font-size:20px;color:#3474A7"),
-                   textInput(inputId = "addresse", label = "Enter city or address", value = ""),
+                   tags$h3("1) Select a location", style = "font-size:20px;color:#3474A7"),
+                   p("For example:", style = "font-size:14px"),
+                   tags$div(
+                     HTML("<ul>
+            <li>Munich [Municipality]</li>
+            <li>Hamburg, Bartelsstr 7 [Municipality + street] </li>
+            <li>Friedrichstraße 22, 10969 Berlin [Municipality + street + postalcode] </li>
+          </ul>")
+                   ),
+                   textInput(inputId = "addresse", label = "Enter city or address (works only within Germany)", value = ""),
                    actionButton(inputId = "Adress_button", label = "Search", class = "btn-success"),
                    hr(),
                    tags$h3("2) Dwelling characteristics", style = "font-size:20px;color:#3474A7"),
@@ -143,6 +151,7 @@ ui <-fluidPage(
                    br(),
                    useShinyjs(),
                    shinyjs::hidden(actionButton(inputId = "ML_button", label = "Start prediction", class = "btn-success")),
+                   #ationButton(inputId = "ML_button", label = "Start prediction", class = "btn-success"),
                    br(),
                    htmlOutput("pred_setting"),
                    br(),
@@ -212,7 +221,9 @@ server <- function(input, output,session) {
   })
   
   output$map <- renderTmap({
-      tm_shape(Adresse()) + 
+    if(is.null(Adresse()))
+      return()
+     tm_shape(Adresse()) + 
       tm_symbols(shape=icon,size=2) +
       tm_view(bbox = geocode()$bbox+(zoom*c(-1,-1,1,1)),alpha=0.8) +
       tm_basemap(leaflet::providers$OpenStreetMap)
@@ -223,7 +234,10 @@ server <- function(input, output,session) {
   })
   
   
-  newdata <- eventReactive(input$Gebaeude_button,{
+  newdata <- reactive({
+    if(is.null(Adresse()))
+      return()
+    
       newdata <- data.frame(matrix(ncol = 14, nrow = 1))
       x <- c("type","Baujahr_Klasse","Wohneinheiten","Etage","RnS","Perm","Temp","Prec","SM","slope",
              "faults","WindExp","RnOut","address")
@@ -260,16 +274,15 @@ server <- function(input, output,session) {
       newdata[,14]<- Adresse()     
       newdata
     })
-  
+
   observeEvent(input$Gebaeude_button, {
-    shinyjs::enable("ML_button")
-    shinyjs::toggle("ML_button", anim = TRUE)
+    shinyjs::show("ML_button")
   })
-  
+
   check_newdata<-reactive({
     sum(is.na(as.vector(newdata())))>0
   })
-    
+
   output$check_datanew <- reactive({
     if (check_newdata())
       print("WARNING! Your input data is incomplete. No prediction possible!")
@@ -302,7 +315,7 @@ server <- function(input, output,session) {
     data
   })
   
-  output$pred_setting <- renderText({
+  output$pred_setting <- eventReactive(input$ML_button,{
     req(is.na(check()$water)) 
     req(is.na(check()$mining))  
     req(!is.na(check()$border))
@@ -345,10 +358,9 @@ server <- function(input, output,session) {
     req(is.na(check()$water)) 
     req(is.na(check()$mining))  
     req(!is.na(check()$border))
-    probs<-(1-plnorm3(q=c(100,300),mean=dist.par()$GM,sd=dist.par()$GSD,threshold=dist.par()$thresh))*100  
+    probs<-(1-plnorm3(q=100,mean=dist.par()$GM,sd=dist.par()$GSD,threshold=dist.par()$thresh))*100  
     P100<-probs[1]
-    P300<-probs[2]
-    probs<-data.frame(P100,P300)
+    probs<-data.frame(P100)
     probs
   })
 
@@ -386,16 +398,19 @@ server <- function(input, output,session) {
   },
   height = 300, width = 600)
   
-  prob100<-eventReactive(input$ML_button,{
+  prob100<-reactive({
     req(is.na(check()$water))
     req(is.na(check()$mining))
     req(!is.na(check()$border))
-    ifelse(probs()$P100 <=1,paste0("The best estimate (conditional mean) for your household is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
-           "In 10 out of 100 cases (90th percentile) for households with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ", round(dist.par()$P90,digits=0)," Bq/m³.",
-          paste0("The probability of "),strong("exceeding 100 Bq/m³"), " for your household is ",strong("<1 %.")),
-          paste0("The best estimate (conditional mean) for your household is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
-                  "In 10 out of 100 cases (90th percentile) for households with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ", round(dist.par()$P90,digits=0)," Bq/m³.",
-                     paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong(round(probs()$P100,digits=0)," %."))))
+    ifelse(probs()$P100 <1,
+          paste0("The best estimate (conditional mean) for your dwelling is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
+           "In 10 out of 100 cases (90th percentile) for dwellings with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ",
+           round(dist.par()$P90,digits=0)," Bq/m³.",
+          paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong("<1 %."))),
+          paste0("The best estimate (conditional mean) for your dwelling is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
+           "In 10 out of 100 cases (90th percentile) for dwellings with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ",
+           round(dist.par()$P90,digits=0)," Bq/m³.",
+          paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong(round(probs()$P100,digits=0)," %."))))
           
   })
   
