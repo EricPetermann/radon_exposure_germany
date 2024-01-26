@@ -20,7 +20,7 @@ setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
 FederalStates<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 }
 
-BL$EW100<-BL$Exc100*BL$EWZ
+FederalStates$EW100<-FederalStates$Exc100*FederalStates$EWZ
 
 #define class breaks
 breaks_pop_BL = c(0,50000,125000,250000,500000,1250000,2500000,Inf)
