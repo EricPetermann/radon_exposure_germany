@@ -23,6 +23,7 @@ Municipalities<-st_read("Ergebnisse Gemeinde_FINAL.gpkg",quiet=TRUE)
 }
 
 Municipalities$AM <- as.integer(Municipalities$AM)
+Municipalities$AGS<-Municipalities$Kommune
 
 #define class breaks
 breaks_AM = c(0,35,55,75,100,125,150,Inf)
