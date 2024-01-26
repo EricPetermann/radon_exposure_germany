@@ -92,7 +92,7 @@ ui <-fluidPage(
                      HTML("<ul>
             <li>Munich [Municipality]</li>
             <li>Hamburg, Bartelsstr 7 [Municipality + street] </li>
-            <li>Friedrichstraße 22, 10969 Berlin [Municipality + street + postalcode] </li>
+            <li>Friedrichstraße 22, 10969 Berlin [Municipality + street + postal code] </li>
           </ul>")
                    ),
                    textInput(inputId = "addresse", label = "Enter city or address (works only within Germany)", value = ""),
@@ -242,24 +242,20 @@ server <- function(input, output,session) {
       x <- c("type","Baujahr_Klasse","Wohneinheiten","Etage","RnS","Perm","Temp","Prec","SM","slope",
              "faults","WindExp","RnOut","address")
       colnames(newdata) <- x
-      newdata[,1] <- as.factor(input$type)
-      newdata[,1] <- mapvalues(newdata[,1], 
+      newdata[,1] <- mapvalues(as.factor(input$type), 
                                  from = c("Single family house","Townhouse","Multi family house",
                                           "Apartment block","High-rise apartment block","Terrace house","Farmhouse","Office building"), 
                                  to = c("EFH/ZFH", "RH/DHH","MFH","WB","WHH","TH","BH","Büro"))
-      newdata[,2] <- as.factor(input$baujahr)
-      newdata[,2] <- mapvalues(newdata[,2], 
+      newdata[,2] <- mapvalues(as.factor(input$baujahr), 
                                from = c("Before 1945","1945 - 1980","1981 - 1995",
                                         "1996 - 2005","2006 or later","unknown"), 
                                to = c("<1945", "1945-1980","1981-1995","1996-2005",">2006","NA"))
       
-      newdata[,3] <- as.factor(input$wohneinheiten)
-      newdata[,3] <- mapvalues(newdata[,3], 
+      newdata[,3] <- mapvalues(as.factor(input$wohneinheiten), 
                                from = c("1","2","3 - 6","7 - 12","13 or more"), 
                                to = c("1 Wohneinheit","2 Wohneinheiten","3 - 6 Wohneinheiten",      
                                       "7 - 12 Wohneinheiten","13 und mehr Wohneinheiten"))
-      newdata[,4] <- as.factor(input$etage)
-      newdata[,4] <- mapvalues(newdata[,4], 
+      newdata[,4] <- mapvalues(as.factor(input$etage), 
                                from = c("Basement","Groundfloor","1st floor","2nd floor","3rd floor or higher"), 
                                to = c("Keller","Erdgeschoss","1. Etage","2. Etage","3. Etage oder höher"))
       newdata[,5] <- as.numeric(format(round(terra::extract(Rn_S,Adresse())[,2],0),nsmall=0))
@@ -308,17 +304,10 @@ server <- function(input, output,session) {
   })
   
   data.for.pred <-  eventReactive(input$ML_button,{
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
-    data<-newdata()
-    data
+    newdata()
   })
   
   output$pred_setting <- eventReactive(input$ML_button,{
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
     req(probs())
     HTML(paste("<b>","Prediction for a residential building in: ", 
               input$addresse,". ",
@@ -327,9 +316,6 @@ server <- function(input, output,session) {
   })
   
   output$info<- renderText({
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
     req(newdata())
     req(probs())
     HTML(paste0("<b>","A prediction is not a replacement of a measurement!","</b>",p("Other relevant factors which are affecting indoor radon concentration are existing. These factors comprise dwelling specific 
@@ -337,10 +323,6 @@ server <- function(input, output,session) {
           })
   
   dist.par <- eventReactive(input$ML_button,{
-    req(!check_newdata())
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
     pred <- predict(mod,newdata=newdata(),type="response",FUN=myQuantile)  #make prediction
     RnOut<-Rnout()
     if (RnOut>=pred[1])
@@ -355,20 +337,12 @@ server <- function(input, output,session) {
   
 
   probs <- eventReactive(input$ML_button,{
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
     probs<-(1-plnorm3(q=100,mean=dist.par()$GM,sd=dist.par()$GSD,threshold=dist.par()$thresh))*100  
     P100<-probs[1]
     probs<-data.frame(P100)
-    probs
   })
 
   output$pdf <- renderPlot({
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
-    req(newdata())
     quant<-seq(0,1000,0.1)
     pdf<-dlnorm3(x=quant, meanlog = dist.par()$GM, sdlog = dist.par()$GSD, threshold = dist.par()$thresh)
     pdf.data<-data.frame(quant,pdf)
@@ -398,28 +372,18 @@ server <- function(input, output,session) {
   },
   height = 300, width = 600)
   
-  prob100<-reactive({
-    req(is.na(check()$water))
-    req(is.na(check()$mining))
-    req(!is.na(check()$border))
-    ifelse(probs()$P100 <1,
-          paste0("The best estimate (conditional mean) for your dwelling is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
-           "In 10 out of 100 cases (90th percentile) for dwellings with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ",
-           round(dist.par()$P90,digits=0)," Bq/m³.",
-          paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong("<1 %."))),
-          paste0("The best estimate (conditional mean) for your dwelling is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
-           "In 10 out of 100 cases (90th percentile) for dwellings with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ",
-           round(dist.par()$P90,digits=0)," Bq/m³.",
-          paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong(round(probs()$P100,digits=0)," %."))))
-          
-  })
-  
+
   output$prob100 <- renderText({
-    req(is.na(check()$water)) 
-    req(is.na(check()$mining))  
-    req(!is.na(check()$border))
-    req(probs())
-    prob100<-prob100()
+    ifelse(probs()$P100 <1,
+           paste0("The best estimate (conditional mean) for your dwelling is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
+                  "In 10 out of 100 cases (90th percentile) for dwellings with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ",
+                  round(dist.par()$P90,digits=0)," Bq/m³.",
+                  paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong("<1 %."))),
+           paste0("The best estimate (conditional mean) for your dwelling is an indoor radon concentration of ", strong(round(dist.par()$AM,digits=0)," Bq/m³."),
+                  "In 10 out of 100 cases (90th percentile) for dwellings with similar environmental and dwelling characteristics, indoor radon concentrations are greater than ",
+                  round(dist.par()$P90,digits=0)," Bq/m³.",
+                  paste0("The probability of ",strong("exceeding 100 Bq/m³")," for your household is ",strong(round(probs()$P100,digits=0)," %."))))
+    
   })
   
 }
