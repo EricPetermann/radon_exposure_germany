@@ -14,16 +14,16 @@ library(classInt)
 
 if (Sys.getenv("DEV")=="Docker") { 
 setwd("/app/")
-BL<-st_read("./daten/bundesland.gpkg",quiet=TRUE)
-KR<-st_read("./daten/kreise.gpkg",quiet=TRUE) 
+FederalStates<-st_read("./daten/bundesland.gpkg",quiet=TRUE)
+Districts<-st_read("./daten/kreise.gpkg",quiet=TRUE) 
 } else { 
 setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
-BL<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
-KR<-st_read("Ergebnisse Kreise.gpkg",quiet=TRUE)
+FederalStates<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
+Districts<-st_read("Ergebnisse Kreise.gpkg",quiet=TRUE)
 }
 
-KR$EW100<-KR$Exc100*KR$EWZ
-KR$EW100<-as.numeric(format(round(KR$EW100,0),nsmall=0))
+Districts$EW100<-Districts$Exc100*Districts$EWZ
+Districts$EW100<-as.numeric(format(round(Districts$EW100,0),nsmall=0))
 
 #define class breaks
 breaks_pop_KR = c(0,1000,2500,5000,10000,25000,50000,Inf)
@@ -32,14 +32,14 @@ tmap_mode(mode = "view")
 
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
-  tm_shape(KR,bbox=st_bbox(BL))+
+  tm_shape(Districts,bbox=st_bbox(FederalStates))+
   tm_fill("EW100",palette = "YlGnBu",alpha=0.7,breaks=breaks_pop_KR,style="fixed",
               title="[Number of people]",legend.is.portrait = TRUE)+
   tm_borders(col="darkgrey",lwd=0.5,alpha=1)+
-  tm_shape(BL,bbox=st_bbox(BL))+
+  tm_shape(FederalStates,bbox=st_bbox(FederalStates))+
   tm_borders(col="black",lwd=1,alpha=1)+
   tm_credits("(c) GeoBasis-DE / BKG 2022", position=c("LEFT", "BOTTOM"))+
   tm_layout(panel.show = TRUE,legend.show=TRUE,legend.outside.position = "right",legend.outside = TRUE,
-            panel.labels = "Arithmetic mean", legend.outside.size = 0.1,panel.label.size = 1)
+            panel.labels = "Districts", legend.outside.size = 0.1,panel.label.size = 1)
 
 ```
