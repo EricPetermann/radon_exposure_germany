@@ -23,7 +23,14 @@ library(terra)
 library(stringi)
 library(ggplot2)
 
+
+if (Sys.getenv("DEV")=="Docker") { 
+setwd("/app/shiny/data/")
+} else { 
 setwd("W:/UR_intern/UR2/Mitarbeitende/Eric/Projekte/IRC und weitere Karten 2022/R/shiny/data/")
+}
+
+
 load("IRC model.R") 
 
 #load spatial predictor data
