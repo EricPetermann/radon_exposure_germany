@@ -1,5 +1,5 @@
 ---
-title: "Population above 100 Bq/m³"
+title: "Population above 300 Bq/m³"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the federal state level. 
@@ -20,17 +20,17 @@ setwd("C:/BfS/Daten/Rn-Innenraum-Prognose/")
 FederalStates<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 }
 
-FederalStates$EW100<-FederalStates$Exc100*FederalStates$EWZ
+FederalStates$EW300<-FederalStates$Exc300*FederalStates$EWZ
 
 #define class breaks
-breaks_pop_BL = c(0,50000,125000,250000,500000,1250000,2500000,Inf)
+breaks_pop_BL = c(0,10000,25000,50000,100000,250000,500000,Inf)
 
 tmap_mode(mode = "view")
 
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
   tm_shape(FederalStates,bbox=st_bbox(FederalStates))+
-  tm_fill("EW100",palette = "YlGnBu",alpha=0.7,breaks=breaks_pop_BL,style="fixed",
+  tm_fill("EW300",palette = "YlGnBu",alpha=0.7,breaks=breaks_pop_BL,style="fixed",
               title="[Number of people]",legend.is.portrait = TRUE)+
   tm_borders(col="darkgrey",lwd=0.5,alpha=1)+
   tm_shape(FederalStates,bbox=st_bbox(FederalStates))+
