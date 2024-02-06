@@ -1,5 +1,5 @@
 ---
-title: "100 Bq/m³ exceedance probability"
+title: "300 Bq/m³ exceedance probability"
 ---
 
 Here are the results of indoor radon exposure at home in Germany at the federal state level. 
@@ -21,18 +21,18 @@ FederalStates<-st_read("Ergebnisse Bundesland n16.gpkg",quiet=TRUE)
 }
 
 #define class breaks
-breaks_Exc100 = c(0,2,5,8,12,20,30,45,Inf)
+breaks_Exc300 = c(0,1,2,4,6,8,10,15,Inf)
 
 #convert to percent
-FederalStates$Exc100<-FederalStates$Exc100*100
-FederalStates$Exc100<-as.numeric(format(round(FederalStates$Exc100, 1), nsmall = 1)) #one decimal digit
+FederalStates$Exc300<-FederalStates$Exc300*100
+FederalStates$Exc300<-as.numeric(format(round(FederalStates$Exc300, 1), nsmall = 1)) #one decimal digit
 
 tmap_mode(mode = "view")
 
   tmap_options(check.and.fix = TRUE)
   tm_basemap(c(StreetMap = "OpenStreetMap",TopoMap = "OpenTopoMap"))+
   tm_shape(FederalStates,bbox=st_bbox(FederalStates))+
-  tm_fill("Exc100",palette = "YlGnBu",alpha=0.7,breaks=breaks_Exc100,style="fixed",
+  tm_fill("Exc300",palette = "YlGnBu",alpha=0.7,breaks=breaks_Exc300,style="fixed",
               title="[%]",legend.is.portrait = TRUE)+
   tm_borders(col="darkgrey",lwd=0.5,alpha=1)+
   tm_shape(FederalStates,bbox=st_bbox(FederalStates))+
