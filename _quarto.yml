@@ -2,6 +2,11 @@
 project:
   type: website
   output-dir: docs
+  # Ignore model.qmd, because its a dynamic and not a static page
+  # https://quarto.org/docs/projects/quarto-projects.html#render-targets
+  render:
+    - "*.qmd"
+    - "!model.qmd"
 
 website:
   title: "Indoor radon exposure Germany"
@@ -10,8 +15,11 @@ website:
       - href: index.qmd
         text: Home
     right:
-      - href: model.qmd
-        text: Model
+    # Test Model link to another container
+    # https://quarto.org/docs/websites/website-navigation.html#navbar-tools
+      - text: Model
+        url:  https://radonmap.info
+        
 
   sidebar:
     style: "docked"
