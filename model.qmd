@@ -32,9 +32,6 @@ setwd("W:/UR_intern/UR2/Mitarbeitende/Eric/Projekte/IRC und weitere Karten 2022/
 load("IRC model.R") 
 }
 
-
-load("IRC model.R") 
-
 #load spatial predictor data
 #load predictor data; assign CRS, reproject to common CRS if needed
 Rn_S<-rast("RnSoil_2_0.tif")
