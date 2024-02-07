@@ -8,7 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-           # - model.qmd
+      - href: model.qmd
+        text: Model
 
   sidebar:
     style: "docked"
