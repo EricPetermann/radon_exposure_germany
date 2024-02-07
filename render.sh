@@ -13,7 +13,7 @@ WEBSITE_FOLDER="website/"
 
 # -------------------------------------------------------------
 echo "start rendering website files (html default)"
-quarto render 
+QUARTO_DENO_EXTRA_OPTIONS="--v8-flags=--max-old-space-size=8192" quarto render 
 
 # Check if the quarto render command succeeded
 if [ $? -eq 0 ]; then
