@@ -7,6 +7,7 @@
 
 # when a command fails, bash exits instead of continuing with the rest of the script.
 set -o errexit
+set -e
 
 WEBSITE_FOLDER="website/"
 
