@@ -13,7 +13,16 @@ WEBSITE_FOLDER="website/"
 
 # -------------------------------------------------------------
 echo "start rendering website files (html default)"
-quarto render && echo "Quarto render succeeded" || echo "Quarto render failed"
+quarto render 
+
+# Check if the quarto render command succeeded
+if [ $? -eq 0 ]; then
+    echo "Quarto render succeeded" 
+    echo "Copy new files to webfolder destination"
+else
+    echo "Quarto render failed"
+    exit 1
+fi
 
 # -------------------------------------------------------------
 files=$(shopt -s nullglob dotglob; echo $WEBSITE_FOLDER*)
