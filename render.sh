@@ -9,7 +9,7 @@
 set -o errexit
 set -e
 
-WEBSITE_FOLDER="website/"
+WEBSITE_FOLDER="/app/website/"
 
 # -------------------------------------------------------------
 echo "start rendering website files (html default)"
@@ -48,6 +48,3 @@ chmod -R +rx  $WEBSITE_FOLDER
 
 # -------------------------------------------------------------
 echo "done"
-
-
-
