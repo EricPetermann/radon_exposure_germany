@@ -14,6 +14,7 @@ library(shinycssloaders)
 library(terra)
 library(stringi)
 library(ggplot2)
+library(partykit)
 
 # Specify the application port                                                                            
 options(shiny.host = "0.0.0.0")                                                            
@@ -324,7 +325,7 @@ server <- function(input, output,session) {
           })
   
   dist.par <- eventReactive(input$ML_button,{
-    pred <- predict(mod,newdata=newdata(),type="response",FUN=myQuantile)  #make prediction
+    pred = predict(mod,newdata=newdata(),type="response",FUN=myQuantile)  #make prediction
     RnOut<-Rnout()
     if (RnOut>=pred[1])
       RnOut <- pred[1]-1 #Outdoor Rn  -> check if RnOut is lower than 10 %ile, then set Rnout at 1 Bq/m³ lower than OutdoorRn
