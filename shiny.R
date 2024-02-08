@@ -17,7 +17,7 @@ library(ggplot2)
 
 
 if (Sys.getenv("DEV")=="Docker") { 
-setwd("/app/shiny/data/")
+setwd("/shiny/data/")
 load("2024_ircmodel.RData") 
 } else { 
 setwd("W:/UR_intern/UR2/Mitarbeitende/Eric/Projekte/IRC und weitere Karten 2022/R/shiny/data/")
