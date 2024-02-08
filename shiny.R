@@ -15,6 +15,9 @@ library(terra)
 library(stringi)
 library(ggplot2)
 
+# Specify the application port                                                                            
+options(shiny.host = "0.0.0.0")                                                            
+options(shiny.port = 8080)    
 
 if (Sys.getenv("DEV")=="Docker") { 
 setwd("/shiny/data/")
