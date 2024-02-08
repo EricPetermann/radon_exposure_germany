@@ -18,7 +18,7 @@ website:
     # Test Model link to another container
     # https://quarto.org/docs/websites/website-navigation.html#navbar-tools
       - text: Model
-        url:  https://radonmap.info
+        url:  https://model.radonmap.info
         
 
   sidebar:
