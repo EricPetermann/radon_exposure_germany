@@ -126,6 +126,8 @@ ui <-fluidPage(
                    tags$h1("How does the radon prediction works?", style = "font-size:24px;color:#3474A7"),
                    p("The radon calculator computes the probability distribution for indoor radon concentration in your household. The calculation utilizes the building and household characteristics entered by the user and natural characteristics (radon concentration in the soil, soil gas permeability, radon concentration in the outdoor air, long-term mean annual precipitation sum, long-term mean temperature, long-term mean soil moisture, slope inclination, tectonic fault density, wind exposure) that are to be expected at the entered address. A statistical model (quantile regression forest) from the field of machine learning is used for the calculation. The model was trained with approximately 14,000 indoor measurements from a recent national survey in Germany."),
                    br(),
+                   p("This is exclusively supporting material to our recent preprint 'A new high-resolution residential radon map for Germany using a machine learning based probabilistic exposure model'."),
+                   br(),  
                    htmlOutput("meinort"),
                    tags$head(tags$style("#meinort{font-size:24px;color:#3474A7}")),
                    tmapOutput(outputId ="map", width = 600, height=250),
