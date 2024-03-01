@@ -27,17 +27,17 @@ website:
       - section: "Federal states"
         contents:
           - federal_states_AM.qmd
-          - federal_states_Exc100.qmd
+          - federal_states_Exc300.qmd
           - federal_states_pop.qmd
       - section: "Districts"
         contents:
           - districts_AM.qmd
-          - districts_Exc100.qmd
+          - districts_Exc300.qmd
           - districts_pop.qmd
       - section: "Municipalities"
         contents:
           - municipalities_AM.qmd
-          - municipalities_Exc100.qmd
+          - municipalities_Exc300.qmd
           - municipalities_pop.qmd
 format:
   html:
