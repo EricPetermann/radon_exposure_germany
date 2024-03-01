@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-This is supporting material to our recent preprint "A new high-resolution residential radon map for Germany using a machine learning based probabilistic exposure model". Here you can find interactive maps of exposure of the German population to the carcinogen radioactive gas radon. 
-#Further, you can also find our model as an interactive tool to get a feeling of what is going on behind the scenes.
+This is supporting material to our recent preprint "Exploring a new machine learning based probabilistic model for high-resolution indoor radon mapping, using the German indoor radon survey data". Here you can find interactive maps of exposure of the German population to the carcinogen radioactive gas radon. 
+In addition, you can also find our model as an interactive tool to get a feeling of what is going on behind the scenes.
 
 You can find the preprint here: https://arxiv.org/abs/2310.11143
