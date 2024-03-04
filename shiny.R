@@ -114,7 +114,7 @@ ui <-fluidPage(
                                            "Apartment block","High-rise apartment block","Terrace house","Farmhouse","Office building")),
                    actionButton(inputId = "Gebaeude_button", label = "Confirm", class = "btn-success"),
                    hr(),
-                  p("Go back to main ", a("Indoor Radon Exposure Germany",href = "https://indoor.radonmap.info/")),
+                  p("Go back to main ", a("Indoor Radon Exposure Germany",href = "https://indoor.radonmap.info/")))),
                   column(4,
                    br(),
                    tags$h1("Operation", style = "font-size:24px;color:#3474A7"),
