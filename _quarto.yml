@@ -8,7 +8,7 @@ project:
     - "*.qmd"
 
 website:
-  title: "Indoor radon concentration in Germany
+  title: "Indoor radon concentration in Germany"
   navbar:
     left:
       - href: index.qmd
