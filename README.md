@@ -1,4 +1,4 @@
-# Radon exposure map Germany
+# Indoor radon concentration map Germany
 
 Supplementary material to our new preprint
 
