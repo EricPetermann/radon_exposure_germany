@@ -13,7 +13,6 @@ WEBSITE_FOLDER="/app/website/"
 
 # -------------------------------------------------------------
 echo "start rendering website files (html default)"
-export QUARTO_DENO_EXTRA_OPTIONS=--v8-flags=--max-old-space-size=32768
 quarto render 
 
 # Check if the quarto render command succeeded
